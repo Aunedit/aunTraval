@@ -9,20 +9,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   // Field
 
-
-
-
-
   // Method
-
-
-  // Widget vfrom(){
-  //   return
-
-
-  // }
-
-
 
   Widget nameForm() {
     Color color = Colors.purple;
@@ -39,6 +26,52 @@ class _RegisterState extends State<Register> {
           labelStyle: TextStyle(color: color),
           icon: Icon(
             Icons.account_circle,
+            color: color,
+            size: 36.0,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget emailForm() {
+    Color color = Colors.orange;
+    return Container(
+      margin: EdgeInsets.only(left: 30.0, right: 30.0),
+      child: TextField(
+        style: TextStyle(color: color),
+        decoration: InputDecoration(
+          enabledBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: color)),
+          helperText: 'Type Your Email In Blank',
+          helperStyle: TextStyle(color: color),
+          labelText: 'Email :',
+          labelStyle: TextStyle(color: color),
+          icon: Icon(
+            Icons.email,
+            color: color,
+            size: 36.0,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget passwordForm() {
+    Color color = Colors.red;
+    return Container(
+      margin: EdgeInsets.only(left: 30.0, right: 30.0),
+      child: TextField(
+        style: TextStyle(color: color),
+        decoration: InputDecoration(
+          enabledBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: color)),
+          helperText: 'Type Your Password In Blank',
+          helperStyle: TextStyle(color: color),
+          labelText: 'Password :',
+          labelStyle: TextStyle(color: color),
+          icon: Icon(
+            Icons.lock,
             color: color,
             size: 36.0,
           ),
@@ -101,6 +134,8 @@ class _RegisterState extends State<Register> {
           showAvatar(),
           showButton(),
           nameForm(),
+          emailForm(),
+          passwordForm(),
         ],
       ),
     );
