@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1081308423118",
+    "firebase_url": "https://auntravel-847a6.firebaseio.com",
+    "project_id": "auntravel-847a6",
+    "storage_bucket": "auntravel-847a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081308423118:android:4395776b8ac7ae5925819f",
+        "android_client_info": {
+          "package_name": "com.edit90.auntravel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081308423118-59a0n7ksudk48cfg0oi3c3is1kilkkht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUiY6DSTaA9wg8HWkWys_KVd8nS7eM9Vc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081308423118-59a0n7ksudk48cfg0oi3c3is1kilkkht.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

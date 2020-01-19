@@ -1,5 +1,8 @@
 import 'package:auntravel/utility/my_style.dart';
+import 'package:auntravel/utility/normal_dialog.dart';
 import 'package:auntravel/widget/register.dart';
+import 'package:auntravel/widget/travel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Authen extends StatefulWidget {
@@ -10,6 +13,8 @@ class Authen extends StatefulWidget {
 class _AuthenState extends State<Authen> {
   //  Feild
 
+  String user = '', password = '';
+
   // Method
 
   Widget singInButton() {
@@ -19,8 +24,25 @@ class _AuthenState extends State<Authen> {
         'Sign In',
         style: TextStyle(color: Colors.white),
       ),
-      onPressed: () {},
+      onPressed: () {
+        checkAuthen();
+      },
     );
+  }
+
+  Future<void> checkAuthen() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    await firebaseAuth
+        .signInWithEmailAndPassword(email: user, password: password)
+        .then((response) {
+          MaterialPageRoute materialPageRoute = MaterialPageRoute(builder: (BuildContext buildContext)=>Travel());
+          Navigator.of(context).pushAndRemoveUntil(materialPageRoute , (Route<dynamic> route)=>false);
+        })
+        .catchError((response) {
+          String title = response.code;
+          String message = response.message;
+          normalDialog(context, title, message);
+        });
   }
 
   Widget singUpButton() {
@@ -58,6 +80,9 @@ class _AuthenState extends State<Authen> {
     return Container(
       width: 250.0,
       child: TextField(
+        onChanged: (String string) {
+          user = string.trim();
+        },
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
@@ -77,6 +102,9 @@ class _AuthenState extends State<Authen> {
     return Container(
       width: 250.0,
       child: TextField(
+        onChanged: (String string) {
+          password = string.trim();
+        },
         obscureText: true,
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(
