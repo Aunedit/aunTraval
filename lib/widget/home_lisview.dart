@@ -1,5 +1,6 @@
 import 'package:auntravel/models/travel_model.dart';
 import 'package:auntravel/utility/my_style.dart';
+import 'package:auntravel/widget/add_travel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -110,11 +111,40 @@ class _HomeListViewState extends State<HomeListView> {
     );
   }
 
+  Widget addButton() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(20.0),
+              child: FloatingActionButton(
+                backgroundColor: MyStyle().textcolor,
+                child: Icon(Icons.add),
+                onPressed: () {
+                  MaterialPageRoute materialPageRoute =
+                      MaterialPageRoute(builder: (BuildContext buildContext) {
+                    return AddTravel();
+                  });
+                  Navigator.of(context).push(materialPageRoute);
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // child: Text('This is HomeListView'),
-      child: showListView(),
+    return Stack(
+      children: <Widget>[
+        showListView(),
+        addButton(),
+      ],
     );
   }
 }
