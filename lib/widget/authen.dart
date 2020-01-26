@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:auntravel/utility/my_style.dart';
 import 'package:auntravel/utility/normal_dialog.dart';
 import 'package:auntravel/widget/register.dart';
@@ -17,6 +19,22 @@ class _AuthenState extends State<Authen> {
 
   // Method
 
+  @override
+  void initState() {
+    super.initState();
+    checkStatus();
+  }
+
+  Future<void> checkStatus() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    FirebaseUser firebaseUser = await firebaseAuth.currentUser();
+    if (firebaseUser != null) {
+      routeToTravel();
+    }
+
+
+  }
+
   Widget singInButton() {
     return RaisedButton(
       color: MyStyle().textcolor,
@@ -35,14 +53,19 @@ class _AuthenState extends State<Authen> {
     await firebaseAuth
         .signInWithEmailAndPassword(email: user, password: password)
         .then((response) {
-          MaterialPageRoute materialPageRoute = MaterialPageRoute(builder: (BuildContext buildContext)=>Travel());
-          Navigator.of(context).pushAndRemoveUntil(materialPageRoute , (Route<dynamic> route)=>false);
-        })
-        .catchError((response) {
-          String title = response.code;
-          String message = response.message;
-          normalDialog(context, title, message);
-        });
+      routeToTravel();
+    }).catchError((response) {
+      String title = response.code;
+      String message = response.message;
+      normalDialog(context, title, message);
+    });
+  }
+
+  void routeToTravel() {
+    MaterialPageRoute materialPageRoute =
+        MaterialPageRoute(builder: (BuildContext buildContext) => Travel());
+    Navigator.of(context).pushAndRemoveUntil(
+        materialPageRoute, (Route<dynamic> route) => false);
   }
 
   Widget singUpButton() {

@@ -114,8 +114,8 @@ class _RegisterState extends State<Register> {
     try {
       var object = await ImagePicker.pickImage(
         source: imageSource,
-        maxWidth: 200.0,
-        maxHeight: 200.0,
+        maxWidth: 500.0,
+        maxHeight: 500.0,
       );
 
       setState(() {
