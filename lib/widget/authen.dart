@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:auntravel/utility/my_style.dart';
 import 'package:auntravel/utility/normal_dialog.dart';
 import 'package:auntravel/widget/register.dart';

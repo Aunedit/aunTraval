@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:auntravel/utility/my_style.dart';
+import 'package:auntravel/widget/add_travel.dart';
+import 'package:auntravel/widget/authen.dart';
 import 'package:auntravel/widget/home_lisview.dart';
 import 'package:auntravel/widget/information.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -61,12 +63,16 @@ class _TravelState extends State<Travel> {
     return Container(
       width: 80.0,
       height: 80.0,
-      child: url == null ? Image.asset('images/logo.png') : showAvatarFromFirebase(),
+      child: url == null
+          ? Image.asset('images/logo.png')
+          : showAvatarFromFirebase(),
     );
   }
 
-  Widget showAvatarFromFirebase(){
-    return CircleAvatar(backgroundImage: NetworkImage(url),);
+  Widget showAvatarFromFirebase() {
+    return CircleAvatar(
+      backgroundImage: NetworkImage(url),
+    );
   }
 
   Widget headDrawer() {
@@ -150,7 +156,11 @@ class _TravelState extends State<Travel> {
   Future<void> processSignOut() async {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     await firebaseAuth.signOut().then((response) {
-      exit(0);
+      // exit(0);
+      MaterialPageRoute materialPageRoute =
+          MaterialPageRoute(builder: (BuildContext buildContext) => Authen());
+      Navigator.of(context).pushAndRemoveUntil(
+          materialPageRoute, (Route<dynamic> route) => false);
     });
   }
 
