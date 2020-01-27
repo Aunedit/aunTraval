@@ -3,6 +3,7 @@ import 'package:auntravel/utility/normal_dialog.dart';
 import 'package:auntravel/widget/register.dart';
 import 'package:auntravel/widget/travel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class Authen extends StatefulWidget {
@@ -23,14 +24,14 @@ class _AuthenState extends State<Authen> {
     checkStatus();
   }
 
+  
+
   Future<void> checkStatus() async {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     FirebaseUser firebaseUser = await firebaseAuth.currentUser();
     if (firebaseUser != null) {
       routeToTravel();
     }
-
-
   }
 
   Widget singInButton() {
@@ -62,8 +63,8 @@ class _AuthenState extends State<Authen> {
   void routeToTravel() {
     MaterialPageRoute materialPageRoute =
         MaterialPageRoute(builder: (BuildContext buildContext) => Travel());
-    Navigator.of(context).pushAndRemoveUntil(
-        materialPageRoute, (Route<dynamic> route) => false);
+    Navigator.of(context)
+        .pushAndRemoveUntil(materialPageRoute, (Route<dynamic> route) => false);
   }
 
   Widget singUpButton() {

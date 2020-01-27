@@ -62,7 +62,7 @@ class _AddTravelState extends State<AddTravel> {
 
   Widget nameForm() {
     return Container(
-      // height: 50.0,
+      height: 50.0,
       decoration: BoxDecoration(
         color: Colors.black38,
         borderRadius: BorderRadius.circular(12.0),
@@ -71,7 +71,7 @@ class _AddTravelState extends State<AddTravel> {
         onChanged: (String string) {
           name = string.trim();
         },
-        maxLines: 2,
+        // maxLines: 2,
         keyboardType: TextInputType.multiline,
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
@@ -213,12 +213,14 @@ class _AddTravelState extends State<AddTravel> {
       onPressed: () {
         if (file == null) {
           normalDialog(
-              context, 'Non Choose Image', 'Please Click on Camera or Gallery');
-        } else if (name == null ||
-            name.isEmpty ||
-            detail == null ||
-            detail.isEmpty) {
-          normalDialog(context, 'Have Space', 'Pleae Fill Every Blank');
+              context, 'Non Choose Image', 'กรุณาถ่ายภาพ หรือ เปิดจากคลังภาพ');
+        } else if ((detail == null || detail.isEmpty) &&
+            (name == null || name.isEmpty)) {
+          normalDialog(context, 'Have Space', 'กรุณาใส่ค่า Name & Detail ก่อน');
+        } else if (name == null || name.isEmpty) {
+          normalDialog(context, 'Have Space', 'กรุณาใส่ค่า Name ก่อน');
+        } else if (detail == null || detail.isEmpty) {
+          normalDialog(context, 'Have Space', 'กรุณาใส่ค่า Detail ก่อน');
         } else {
           confirmDialog();
         }
@@ -290,7 +292,8 @@ class _AddTravelState extends State<AddTravel> {
 
     Random random = Random();
     int i = random.nextInt(10000);
-    String string = '$now/Picture.jpg';
+    // String string = '$now-Picture.jpg';
+    String string = 'Picture-$i.jpg';
 
     FirebaseStorage firebaseStorage = FirebaseStorage.instance;
     StorageReference storageReference =

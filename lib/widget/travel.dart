@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:auntravel/utility/my_style.dart';
+import 'package:auntravel/utility/normal_dialog.dart';
 import 'package:auntravel/widget/add_travel.dart';
 import 'package:auntravel/widget/authen.dart';
 import 'package:auntravel/widget/home_lisview.dart';
 import 'package:auntravel/widget/information.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class Travel extends StatefulWidget {
@@ -24,7 +26,37 @@ class _TravelState extends State<Travel> {
   @override
   void initState() {
     super.initState();
+     checkMessage();
     findUID();
+  }
+
+  Future<void> checkMessage() async {
+    FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+    String token = await firebaseMessaging.getToken();
+    print('token = $token');
+
+    firebaseMessaging.configure(
+      onLaunch: (Map<String, dynamic> map) async {
+        normalDialog(context, 'OnLaunch', 'OnLaunch');
+      print('mapOnLaunch = $map');      
+
+    }, 
+    onMessage: (Map<String, dynamic> map) async {
+      var message = map['notification'];
+      String title = message['title'];
+      String detail = message['body'];
+
+      normalDialog(context, title, detail);
+      print('maponMessage = $map');
+    }, 
+    onResume: (Map<String, dynamic> map) async {
+      normalDialog(context, 'OnResume', 'OnResume');
+      print('maponResume = $map');
+    }, 
+    onBackgroundMessage: (Map<String, dynamic> map) async {
+      normalDialog(context, 'OnBack', 'OnBack');
+      print('maponBlack = $map');
+    });
   }
 
   Future<void> findUID() async {
